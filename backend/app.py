@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, render_template, request, send_file
 from flask_cors import CORS
-import createpdf
 import os
 
 # APP
