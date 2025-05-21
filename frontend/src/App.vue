@@ -1,47 +1,59 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+  import { RouterView } from 'vue-router'
+  import { ref, computed } from "vue"
+
+  // Set title of website
+  const title = "Sounds Classic"
+
+  // footer content
+  const footer = "Copyright © 2025 Soundsclassic.com"
 </script>
 
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+    Hello world text
   </header>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <RouterView />
+
+  <!-- footer always present, containing authorship info for website -->
+  <footer>
+    <p class="footer">{{ footer }}</p>
+  </footer>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
   header {
+    height: var(--header-height);
+    width: 100%;
+    padding: 0 10% 0 10%;
+    align-items: center;
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    background-color: #0461cf;
+    justify-content: space-evenly;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  footer {
+    width: 100%;
+    bottom:0;
+    padding: 0 10% 0 10%;
+    height: 4.5rem;
+    background-color: #054fb9;
+    color: white;
+    text-align: center;
+    display: flex;
+    font-size: var(--normal-font-size);
+    justify-content: center;
+    align-items: center;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  footer a {
+    color: #00bf7d;
+    text-decoration: none;
   }
-}
+
+  footer a:hover {
+    background-color: rgba(0, 191, 125, 0.25);
+  }
 </style>
