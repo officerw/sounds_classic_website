@@ -1,32 +1,65 @@
 /* color palette from <https://github.com/vuejs/theme> */
 
 /*
-  CSS to make home take up large middle section
-*/
-@media only screen and (min-width: 750px) and (max-width: 1440px) {
-  :root {
-    --home-height: calc(100% - var(--header-height) - 4rem);
-    --header-height: 4rem;
-  }
-}
-
-/*
-  CSS to make home take up medium sized middle section
-*/
-@media only screen and (min-width: 1441px) and (max-width: 1920px) {
-  :root {
-    --home-height: calc(100% - var(--header-height) - 4rem);
-    --header-height: 5rem;
-  }
-}
-
-/*
-  CSS to make home take up smaller middle section
+  CSS for large screen sizes
 */
 @media only screen and (min-width: 1921px) {
   :root {
     --home-height: calc(100% - var(--header-height) - 4rem);
-    --header-height: 5rem;
+    --header-height: 7rem;
+    --horizontal-page-padding: 20%;
+  --head-naver-font-size: 1rem;
+  --header-nav-horizontal-padding: 1rem;
+  --header-flex-direction: unset;   
+  --nav-min-height: var(--header-nav-font-size); 
+  --max-logo-size: var(--header-height);
+  }
+}
+
+
+/*
+  CSS for medium screen sizes
+*/
+@media only screen and (max-width: 1921px) {
+  :root {
+    --home-height: calc(100% - var(--header-height) - 4rem);
+    --header-height: 7rem;
+    --horizontal-page-padding: 10%;
+    --header-nav-font-size: 1rem;
+    --header-nav-horizontal-padding: 1rem;
+    --header-flex-direction: unset;
+    --nav-min-height: var(--header-nav-font-size);
+    --max-logo-size: var(--header-height);
+  }
+}
+
+/*
+  CSS for small-medium screen sizes
+*/
+@media only screen and (max-width: 1281px) {
+  :root {
+    --home-height: calc(100% - var(--header-height) - 4rem);
+    --header-height: 6rem;
+    --horizontal-page-padding: 10%;
+    --header-nav-font-size: 0.9rem;
+    --header-nav-horizontal-padding: 0.5rem;
+    --header-flex-direction: unset;
+    --nav-min-height: var(--header-nav-font-size);
+    --max-logo-size: var(--header-height);
+  }
+}
+
+
+/*
+  CSS to have vertical layout for small-medium in between screen sizes
+*/
+@media only screen and (max-width: 850px) {
+  :root {
+    --header-height: fit-content;
+    --header-flex-direction: column;
+    --home-height: calc(170%);
+    --nav-min-height: 2.5rem;
+    --max-logo-size: 6rem;
   }
 }
 
@@ -35,17 +68,30 @@
 */
 @media only screen and (max-width: 749px) {
   :root {
-    --header-height: 2.5rem;
-    --home-height: calc(170% - var(--header-height));
+    --header-height: fit-content;
+    --home-height: calc(170%);
+    --horizontal-page-padding: 5%;
+    --header-nav-font-size: 0.8rem;
+    --header-nav-horizontal-padding: 0.5rem;
+    --header-flex-direction: column;
+    --nav-min-height: 2.5rem;
+    --max-logo-size: 5rem;
   }
 }
 
 /*
- Reduce PDF viewer size further as screen size reduces
+ CSS for very small screen sizes
 */
 @media only screen and (max-width: 575px) {
   :root {
-    --home-height: calc(180% - var(--header-height));
+    --header-height: fit-content;
+    --home-height: calc(180%);
+    --horizontal-page-padding: 2%;
+    --header-nav-font-size: 0.7rem;
+    --header-nav-horizontal-padding: 0.5rem;
+    --header-flex-direction: column;
+    --nav-min-height: 2.5rem;
+    --max-logo-size: 5rem;
   }
 }
 

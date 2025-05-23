@@ -19,8 +19,11 @@
 <style>
     .home-body {
         width: 100%;
-        padding: 0 2% 0 2%;
-        height: var(--home-height);
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: var(--horizontal-page-padding);
+        padding-right: var(--horizontal-page-padding);
+        min-height: var(--home-height);
         display: flex;
         justify-content: center;
         flex-direction: var(--flex-direction-editor-sections);

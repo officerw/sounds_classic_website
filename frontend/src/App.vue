@@ -1,6 +1,7 @@
 <script setup lang="ts">
-  import { RouterView } from 'vue-router'
+  import { RouterView, RouterLink } from 'vue-router'
   import { ref, computed } from "vue"
+import HeaderNavBar from './components/HeaderNavBar.vue'
 
   // Set title of website
   const title = "Sounds Classic"
@@ -11,8 +12,8 @@
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-    Hello world text
+    <RouterLink class="logo" to="/"><img alt="Sounds Classic Logo" class="logo" src="/static/logo_main.jpg"/></RouterLink>
+    <HeaderNavBar/>
   </header>
 
   <RouterView />
@@ -24,14 +25,20 @@
 </template>
 
 <style scoped>
+  .logo {
+    height: inherit;
+    max-height: var(--max-logo-size);
+  }
+
   header {
     height: var(--header-height);
     width: 100%;
     padding: 0 10% 0 10%;
     align-items: center;
     display: flex;
-    background-color: #0461cf;
-    justify-content: space-evenly;
+    background-color: #000000;
+    justify-content: start;
+    flex-direction: var(--header-flex-direction);
   }
 
   footer {
@@ -39,7 +46,7 @@
     bottom:0;
     padding: 0 10% 0 10%;
     height: 4.5rem;
-    background-color: #054fb9;
+    background-color: #000000;
     color: white;
     text-align: center;
     display: flex;
