@@ -37,7 +37,7 @@ import HeaderNavBar from './components/HeaderNavBar.vue'
     align-items: center;
     display: flex;
     background-color: #000000;
-    justify-content: start;
+    justify-content: center;
     flex-direction: var(--header-flex-direction);
   }
 
