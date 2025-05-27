@@ -1,13 +1,22 @@
 
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
-    import { computed } from "vue"
+    import { ref } from "vue"
+    import RouterDropdown from './RouterDropdown.vue';
+
+    const productCategories = ref([
+        { id: 1, routerPath: "/", text: "Category 1"},
+        { id: 2, routerPath: "/", text: "Category 2"},
+        { id: 3, routerPath: "/", text: "Category 3"}
+    ])
 
 </script>
 
 <template>
     <nav class="nav-bar">
-        <RouterLink to="/">Product Categories</RouterLink>
+        <span id="productcategoriesdropdown">
+            <RouterDropdown :menu-items="productCategories" title="Product Categories"/>
+        </span>
         <RouterLink to="/">Services</RouterLink>
         <RouterLink to="/">Terms of Sale</RouterLink>
         <RouterLink to="/">About Us</RouterLink>
