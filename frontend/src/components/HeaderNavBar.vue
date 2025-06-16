@@ -5,9 +5,16 @@
     import RouterDropdown from './RouterDropdown.vue';
 
     const productCategories = ref([
-        { id: 1, routerPath: "/", text: "Category 1"},
-        { id: 2, routerPath: "/", text: "Category 2"},
-        { id: 3, routerPath: "/", text: "Category 3"}
+        { id: 1, routerPath: "/turntables", text: "Turntables"},
+        { id: 2, routerPath: "/preampfliers", text: "Preamplifiers"},
+        { id: 3, routerPath: "/", text: "Power Amplifiers"},
+        { id: 4, routerPath: "/", text: "Integrated Amplifiers"},
+        { id: 5, routerPath: "/", text: "Equalizers"},
+        { id: 6, routerPath: "/", text: "Tuners"},
+        { id: 7, routerPath: "/", text: "Disc Players"},
+        { id: 8, routerPath: "/", text: "8 track players"},
+        { id: 9, routerPath: "/", text: "Reel to Reel Players"},
+
     ])
 
 </script>

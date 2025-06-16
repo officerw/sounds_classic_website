@@ -85,7 +85,7 @@ function toggleDropdown() {
         -->
         <div v-if="isDropdownDisplayed" class="dropdownmenu">
             <ul>
-                <li v-for="menuItem in menuItems" :key="menuItem.id">
+                <li v-for="menuItem in props.menuItems" :key="menuItem.id">
                     <RouterLink v-bind:to=menuItem.routerPath>{{ menuItem.text }}</RouterLink>
                 </li>
             </ul>
