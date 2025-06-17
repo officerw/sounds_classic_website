@@ -33,7 +33,7 @@
 
 <style>
     nav {
-        height: inherit;
+        height: var(--nav-height);
         flex-direction: row;
         display: inline-flex;
     }
