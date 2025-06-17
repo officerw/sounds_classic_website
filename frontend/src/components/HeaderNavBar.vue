@@ -1,13 +1,29 @@
 
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
-    import { computed } from "vue"
+    import { ref } from "vue"
+    import RouterDropdown from './RouterDropdown.vue';
+
+    const productCategories = ref([
+        { id: 1, routerPath: "/turntables", text: "Turntables"},
+        { id: 2, routerPath: "/preampfliers", text: "Preamplifiers"},
+        { id: 3, routerPath: "/", text: "Power Amplifiers"},
+        { id: 4, routerPath: "/", text: "Integrated Amplifiers"},
+        { id: 5, routerPath: "/", text: "Equalizers"},
+        { id: 6, routerPath: "/", text: "Tuners"},
+        { id: 7, routerPath: "/", text: "Disc Players"},
+        { id: 8, routerPath: "/", text: "8 track players"},
+        { id: 9, routerPath: "/", text: "Reel to Reel Players"},
+
+    ])
 
 </script>
 
 <template>
     <nav class="nav-bar">
-        <RouterLink to="/">Product Categories</RouterLink>
+        <span id="productcategoriesdropdown">
+            <RouterDropdown :menu-items="productCategories" title="Product Categories"/>
+        </span>
         <RouterLink to="/">Services</RouterLink>
         <RouterLink to="/">Terms of Sale</RouterLink>
         <RouterLink to="/">About Us</RouterLink>
@@ -17,7 +33,7 @@
 
 <style>
     nav {
-        height: inherit;
+        height: var(--nav-height);
         flex-direction: row;
         display: inline-flex;
     }

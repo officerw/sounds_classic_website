@@ -8,11 +8,12 @@
     --home-height: calc(100% - var(--header-height) - 4rem);
     --header-height: 7rem;
     --horizontal-page-padding: 20%;
-  --head-naver-font-size: 1rem;
-  --header-nav-horizontal-padding: 1rem;
-  --header-flex-direction: unset;   
-  --nav-min-height: var(--header-nav-font-size); 
-  --max-logo-size: var(--header-height);
+    --head-naver-font-size: 1rem;
+    --header-nav-horizontal-padding: 1rem;
+    --header-flex-direction: unset;   
+    --nav-min-height: var(--header-nav-font-size); 
+    --max-logo-size: var(--header-height);
+    --nav-height: var(--header-height);
   }
 }
 
@@ -30,6 +31,7 @@
     --header-flex-direction: unset;
     --nav-min-height: var(--header-nav-font-size);
     --max-logo-size: var(--header-height);
+    --nav-height: var(--header-height);
   }
 }
 
@@ -46,6 +48,7 @@
     --header-flex-direction: unset;
     --nav-min-height: var(--header-nav-font-size);
     --max-logo-size: var(--header-height);
+    --nav-height: var(--header-height);
   }
 }
 
@@ -60,6 +63,7 @@
     --home-height: calc(170%);
     --nav-min-height: 2.5rem;
     --max-logo-size: 6rem;
+    --nav-height: 4rem;
   }
 }
 
@@ -76,6 +80,7 @@
     --header-flex-direction: column;
     --nav-min-height: 2.5rem;
     --max-logo-size: 5rem;
+    --nav-height: 4rem;
   }
 }
 
@@ -92,6 +97,7 @@
     --header-flex-direction: column;
     --nav-min-height: 2.5rem;
     --max-logo-size: 5rem;
+    --nav-height: 4rem;
   }
 }
 
