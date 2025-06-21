@@ -139,6 +139,8 @@ function toggleDropdown() {
 .dropdownmenu li {
     list-style-type: none;
     text-align: center;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
 }
 
 .dropdownmenu ul {
@@ -159,6 +161,7 @@ a {
     width: 100%;
     height: 100%;
     color:black;
+    text-wrap: initial;
 }
 
 a:hover {
