@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
+import MainCarousel from "../components/MainCarousel.vue"
 
 const preloadedText = ref("At Soundsclassic.com, We Specialize in the Service and Restoration of Vintage Stereo Receivers, Amplifiers, Turntables, Tube Equipment and Speakers. We sell Vintage Stereo Equipment, High-end Audio Systems and Speakers. 40 Years of Trusted Audio Service Experience. Hi-Fi Audio Sales, Repair and Restoration in Rockford IL")
 
@@ -16,12 +17,15 @@ Only $39.95 while supplies last!`)
 </script>
 
 <template>
+  <div class="home-carousel">
+    <MainCarousel/>
+  </div>
   <div class="home-body">
     <aside class="sidebar">
       <label class="text-box-label">Store Hours</label>
       <p class="info-text">
-        Tues:Appointments only<br />
-        Wed-Fri: 10am – 6pm<br />
+        Tues: Appointments only<br />
+        Wed - Fri: 10am - 6pm<br />
         Sun - Mon: Closed <br />
         Tuesdays are by appointment only.
 We are not open to the public on Tuesdays.
@@ -47,10 +51,18 @@ during regular business hours. Thank you <br />
 </template>
 
 <style>
+.home-carousel {
+  height: 30%;
+  min-height: 10rem;
+}
+
 .home-body {
   display: flex;
   gap: 2rem;
-  padding: var(--horizontal-page-padding);
+  padding-left: var(--horizontal-page-padding);
+  padding-right: var(--horizontal-page-padding);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   min-height: var(--home-height);
   box-sizing: border-box;
 }
@@ -60,6 +72,7 @@ during regular business hours. Thank you <br />
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .main-content {
@@ -67,6 +80,7 @@ during regular business hours. Thank you <br />
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  align-items: center;
 }
 
 .text-box-container {
