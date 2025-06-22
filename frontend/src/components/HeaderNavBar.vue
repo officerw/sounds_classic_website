@@ -5,16 +5,15 @@
     import RouterDropdown from './RouterDropdown.vue';
 
     const productCategories = ref([
-        { id: 1, routerPath: "/turntables", text: "Turntables"},
-        { id: 2, routerPath: "/preampfliers", text: "Preamplifiers"},
-        { id: 3, routerPath: "/", text: "Power Amplifiers"},
-        { id: 4, routerPath: "/", text: "Integrated Amplifiers"},
-        { id: 5, routerPath: "/", text: "Equalizers"},
-        { id: 6, routerPath: "/", text: "Tuners"},
-        { id: 7, routerPath: "/", text: "Disc Players"},
-        { id: 8, routerPath: "/", text: "8 track players"},
-        { id: 9, routerPath: "/", text: "Reel to Reel Players"},
-
+        { id: 1, routerPath: { name: 'productcategories', params: { product_category: "turntables" } }, text: "Turntables"},
+        { id: 2, routerPath: { name: 'productcategories', params: { product_category: "headphones" } }, text: "Headphones"},
+        { id: 3, routerPath: { name: 'productcategories', params: { product_category: "speakers" } }, text: "Speakers"},
+        { id: 4, routerPath: { name: 'productcategories', params: { product_category: "amplifiers" } }, text: "Amplifiers"},
+        { id: 5, routerPath: { name: 'productcategories', params: { product_category: "receivers" } }, text: "Receivers"},
+        { id: 6, routerPath: { name: 'productcategories', params: { product_category: "cdplayers" } }, text: "CD Players"},
+        { id: 7, routerPath: { name: 'productcategories', params: { product_category: "cassetteplayers" } }, text: "Cassette Players"},
+        { id: 8, routerPath: { name: 'productcategories', params: { product_category: "reel2reel" } }, text: "Reel-to-Reel"},
+        { id: 9, routerPath: { name: 'productcategories', params: { product_category: "accessories" } }, text: "Accessories"},
     ])
 
 </script>

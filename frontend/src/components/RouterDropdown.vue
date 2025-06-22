@@ -3,13 +3,12 @@
 
     This a dropdown component where the router switches to a view based on 
     which option in the dropdown the user clicks on. This is a dropdown 
-    that shows the different interactions between the pages (from
-    Home to Georgia Rap Sheet for example)
+    that shows the different interactions between the pages
 --> 
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+import { RouterLink, type RouteParamsRawGeneric } from 'vue-router'
+import { ref, watch } from 'vue'
 
 /*
     menuItem structure:
@@ -23,7 +22,7 @@ import { ref } from 'vue'
 */
 interface MenuItem {
     id: number
-    routerPath: string
+    routerPath: { name: string; params: RouteParamsRawGeneric }
     text: string
 }
 
@@ -31,9 +30,8 @@ interface MenuItem {
     Input props for the RouterDropdown component:
     - menuItems (required), type: menuItem[]
         - Description: an array of menuItem's, where
-        each menuItem outlines the order, router path,
-        and display text for the menuItem in the 
-        dropdown menu
+        each menuItem outlines the order and the parameters for the
+        router link
     - title (required), type: String
         - Description: the text to be shown on the main
         dropdown button, the button that toggles the
@@ -49,6 +47,14 @@ const props = defineProps({
         required: true
     }
 })
+
+watch(
+    () => props.menuItems,
+    (newMenuItems) => {
+        console.log(newMenuItems)
+    },
+    { immediate: true }
+)
 
 // Toggles whether the dropdown menu options are visible to the user
 var isDropdownDisplayed = ref(false)
@@ -86,7 +92,7 @@ function toggleDropdown() {
         <div v-if="isDropdownDisplayed" class="dropdownmenu">
             <ul>
                 <li v-for="menuItem in props.menuItems" :key="menuItem.id">
-                    <RouterLink v-bind:to=menuItem.routerPath>{{ menuItem.text }}</RouterLink>
+                    <RouterLink :to="{ name: menuItem.routerPath.name, params: menuItem.routerPath.params }">{{ menuItem.text }}</RouterLink>
                 </li>
             </ul>
         </div>

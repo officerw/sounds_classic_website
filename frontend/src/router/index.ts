@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
-import TurntablesView from '@/views/TurntablesView.vue'
+import Product from '@/views/Product.vue'
+import ProductCategory from '@/views/ProductCategory.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,10 +12,16 @@ const router = createRouter({
       component: Home
     },
     {
-      path: '/turntables',
-      name: 'Turntables',
-      component: TurntablesView
+      path: '/productcategories/:product_category',
+      name: 'productcategories',
+      component: ProductCategory
+    },
+    {
+      path: '/productcategories/:product_category/productid/:product_id',
+      name: 'productid',
+      component: Product
     }
   ]
 })
+
 export default router

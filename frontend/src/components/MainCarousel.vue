@@ -26,7 +26,7 @@
     </Carousel>
 </template>
 
-<style>
+<style scoped>
     .carousel {
         height: 100%;
     }

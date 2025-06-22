@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import TheWelcome from './TheWelcome.vue'
 defineProps<{
   msg: string
 }>()
@@ -13,7 +12,6 @@ defineProps<{
       <a href="https://vite.dev/" target="_blank" rel="noopener">Vite</a> +
       <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
     </h3>
-    <TheWelcome />
   </div>
 </template>
 

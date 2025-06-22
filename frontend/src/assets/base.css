@@ -14,6 +14,10 @@
     --nav-min-height: var(--header-nav-font-size); 
     --max-logo-size: var(--header-height);
     --nav-height: var(--header-height);
+    --product-view-grid-template-columns: 5fr 4fr;
+    --product-view-grid-template-rows: 35rem 4fr;
+    --product-title-row: 1;
+    --product-title-column: 2;
   }
 }
 
@@ -32,6 +36,10 @@
     --nav-min-height: var(--header-nav-font-size);
     --max-logo-size: var(--header-height);
     --nav-height: var(--header-height);
+    --product-view-grid-template-columns: 5fr 4fr;
+    --product-view-grid-template-rows: 35rem 4fr;
+    --product-title-row: 1;
+    --product-title-column: 2;
   }
 }
 
@@ -49,6 +57,10 @@
     --nav-min-height: var(--header-nav-font-size);
     --max-logo-size: var(--header-height);
     --nav-height: var(--header-height);
+    --product-view-grid-template-columns: 5fr 4fr;
+    --product-view-grid-template-rows: 35rem 4fr;
+    --product-title-row: 1;
+    --product-title-column: 2;
   }
 }
 
@@ -64,6 +76,10 @@
     --nav-min-height: 2.5rem;
     --max-logo-size: 6rem;
     --nav-height: 4rem;
+    --product-view-grid-template-columns: 5fr 4fr;
+    --product-view-grid-template-rows: 30rem 4fr;
+    --product-title-row: 1;
+    --product-title-column: 2;
   }
 }
 
@@ -81,6 +97,10 @@
     --nav-min-height: 2.5rem;
     --max-logo-size: 5rem;
     --nav-height: 4rem;
+    --product-view-grid-template-columns: 1fr;
+    --product-view-grid-template-rows: 25rem 4fr;
+    --product-title-row: 2;
+    --product-title-column: 1;
   }
 }
 
@@ -98,6 +118,10 @@
     --nav-min-height: 2.5rem;
     --max-logo-size: 5rem;
     --nav-height: 4rem;
+    --product-view-grid-template-columns: 1fr;
+    --product-view-grid-template-rows: 20rem 4fr;
+    --product-title-row: 2;
+    --product-title-column: 1;
   }
 }
 
