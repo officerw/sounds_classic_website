@@ -127,6 +127,7 @@ function toggleDropdown() {
     height: fit-content;
     width: 100%;
     z-index: 10000 !important;
+    position: relative;
 }
 
 .dropdownmenu ul {
