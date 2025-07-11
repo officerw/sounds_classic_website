@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import { ref } from 'vue'
+    import { onMounted, ref } from 'vue'
     import { useRoute, onBeforeRouteUpdate } from 'vue-router'
     import 'vue3-carousel/carousel.css'
     import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
@@ -10,33 +10,55 @@
     }
 
     const route = useRoute()
-    var currentCategory = ref(route.params.product_category as string)
     var productId = ref(route.params.product_id as string)
-    
-    const sampleProduct = ref({
-        id: '1',
-        itemNumber: '1028',
-        manufacturer: `${currentCategory.value} manufacturer`,
-        model: `${currentCategory.value} model`,
-        price: 999.99,
-        condition: 'Used - Excellent',
-        imageUrl: `https://picsum.photos/seed/${currentCategory.value}/800/600`,
-        description: "Newer Sharp BD-HP25U Blu Ray DVD/CD Player. Comes w/ Remote. Ex. Cond. 8.9"
+    var productAPIEndpoint = `/api/products?id=${productId.value}`
+
+    interface Product {
+        id: string;
+        itemNumber: string;
+        manufacturer: string;
+        model: string;
+        price: Number;
+        condition: string;
+        imageUrl: string;
+        description: string;
+    }
+
+    const product = ref<Product>({
+        id: "",
+        itemNumber: "",
+        manufacturer: "",
+        model: "",
+        price: 0,
+        condition: "",
+        imageUrl: "",
+        description: ""
     })
 
     const images = Array.from({ length: 1 }, (_, index) => ({
         id: index + 1,
-        url: sampleProduct.value.imageUrl,
+        url: product.value.imageUrl,
     }))
 
-    // watch for changes in the product category to update
-    // product thumbnails
-    onBeforeRouteUpdate(async (to, from) => {
-        // react to route changes...
-        currentCategory.value = to.params.product_category as string
-        sampleProduct.value.imageUrl = `https://picsum.photos/seed/${currentCategory.value}/800/600`
-        sampleProduct.value.manufacturer = `${currentCategory.value} manufacturer`
-        sampleProduct.value.model = `${currentCategory.value} model`
+    async function getProduct() {
+        try {
+            const response = await fetch(productAPIEndpoint, {
+                method: "GET"
+            });
+            if (!response.ok) {
+                throw new Error("Failed to get products in specific category");
+            }
+            var resultProduct = await response.json()
+            product.value = resultProduct
+        } catch (error) {
+            console.error("Error fetching product categories:", error);
+            return [];
+        }
+    }
+
+    onMounted(() => {
+        console.log("hellloooo")
+        getProduct()
     })
 
 </script>
@@ -56,17 +78,17 @@
             </Carousel>
         </div>
         <div class="product-title-div">
-            <h1 class="product-title">{{ sampleProduct.manufacturer }} {{ sampleProduct.model }}</h1>
-            <h3 class="product-manufacturer">Manufacturer: {{ sampleProduct.manufacturer }}</h3>
-            <h3 class="product-model">Model: {{ sampleProduct.model }}</h3>
-            <h3 class="product-number">Item #: {{ sampleProduct.itemNumber }}</h3>
+            <h1 class="product-title">{{ product.manufacturer }} {{ product.model }}</h1>
+            <h3 class="product-manufacturer">Manufacturer: {{ product.manufacturer }}</h3>
+            <h3 class="product-model">Model: {{ product.model }}</h3>
+            <h3 class="product-number">Item #: {{ product.itemNumber }}</h3>
             <br>
             <hr>
             <br>
-            <h2 class="product-price">Price: ${{ sampleProduct.price.toFixed(2) }}</h2>
+            <h2 class="product-price">Price: ${{ product.price.toFixed(2) }}</h2>
             <br>
-            <h3 class="product-description">Description: {{ sampleProduct.description }}</h3>
-            <h3 class="product-condition">Condition: {{ sampleProduct.condition }}</h3>
+            <h3 class="product-description">Description: {{ product.description }}</h3>
+            <h3 class="product-condition">Condition: {{ product.condition }}</h3>
         </div>
         <div class="two"></div>
         <div class="three"></div>

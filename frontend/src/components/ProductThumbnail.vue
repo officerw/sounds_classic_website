@@ -9,7 +9,7 @@ import { RouterLink } from 'vue-router'
                 itemNumber: string
                 manufacturer: string
                 model: string
-                price: number
+                price: Number
                 condition: string
                 imageUrl: string
                 description: string

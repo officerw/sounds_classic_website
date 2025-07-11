@@ -1,39 +1,60 @@
 <script setup lang="ts">
   import ProductThumbnail from '@/components/ProductThumbnail.vue';
-  import { watch, ref } from 'vue'
+  import { watch, ref, onMounted } from 'vue'
   import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 
   const route = useRoute()
   var currentCategory = ref(route.params.product_category as string)
+  var categoryProdAPIEndpoint = "/api/categories?category=" + currentCategory.value
 
   // watch for changes in the product category to update
   // product thumbnails
   onBeforeRouteUpdate(async (to, from) => {
     // react to route changes...
     currentCategory.value = to.params.product_category as string
-    sampleProduct.value.imageUrl = `https://picsum.photos/seed/${currentCategory.value}/800/600`
-    sampleProduct.value.manufacturer = `${currentCategory.value} manufacturer`
-    sampleProduct.value.model = `${currentCategory.value} model`
+    categoryProdAPIEndpoint = "/api/categories?category=" + currentCategory.value
+    await getProductCategories()
   })
 
-  
-  const sampleProduct = ref({
-    id: '1',
-    itemNumber: '1028',
-    manufacturer: `${currentCategory.value} manufacturer`,
-    model: `${currentCategory.value} model`,
-    price: 999.99,
-    condition: 'Used - Excellent',
-    imageUrl: `https://picsum.photos/seed/${currentCategory.value}/800/600`,
-    description: "Newer Sharp BD-HP25U Blu Ray DVD/CD Player. Comes w/ Remote. Ex. Cond. 8.9"
+  interface Product {
+    id: string;
+    itemNumber: string;
+    manufacturer: string;
+    model: string;
+    price: Number;
+    condition: string;
+    imageUrl: string;
+    description: string;
+  }
+
+  const productsInCategory = ref<Product[]>([])
+
+  async function getProductCategories() {
+    try {
+      const response = await fetch(categoryProdAPIEndpoint, {
+        method: "GET"
+      });
+      if (!response.ok) {
+        throw new Error("Failed to get products in specific category");
+      }
+      var categories = await response.json()
+      productsInCategory.value = categories.map((product: Product) => product)
+    } catch (error) {
+      console.error("Error fetching product categories:", error);
+      return [];
+    }
+  }
+
+
+  onMounted(() => {
+    getProductCategories()
   })
-  const sampleProducts = ref(Array(20).fill(sampleProduct.value))
 
 </script>
 
 <template>
   <div class="product-category-body">
-    <div v-for="product in sampleProducts">
+    <div v-for="product in productsInCategory">
       <ProductThumbnail :product-category="currentCategory" :product="product"/>
     </div>
   </div>

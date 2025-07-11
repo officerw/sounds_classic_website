@@ -1,19 +1,43 @@
 <script setup lang="ts">
-  import { RouterView, RouterLink } from 'vue-router'
-  import { ref, computed } from "vue"
-import HeaderNavBar from './components/HeaderNavBar.vue'
+  import { RouterView, RouterLink, stringifyQuery } from 'vue-router'
+  import { ref, computed, onMounted } from "vue"
+  import HeaderNavBar from './components/HeaderNavBar.vue'
 
   // Set title of website
   const title = "Sounds Classic"
 
   // footer content
   const footer = "Copyright © 2025 Soundsclassic.com"
+
+  // set categories list
+  const productCategories = ref<string[]>([])
+
+  const PROD_CATEGORIES_API_ENDPOINT = "/api/categories"
+  async function getProductCategories() {
+    try {
+      const response = await fetch(PROD_CATEGORIES_API_ENDPOINT, {
+        method: "GET"
+      });
+      if (!response.ok) {
+        throw new Error("Failed to get product categories");
+      }
+      var categories = await response.json()
+      productCategories.value = categories.map((category: string) => String(category))
+    } catch (error) {
+      console.error("Error fetching product categories:", error);
+      return [];
+    }
+  }
+
+  onMounted(() => {
+    getProductCategories()
+  })
 </script>
 
 <template>
   <header>
     <RouterLink class="logo" to="/"><img alt="Sounds Classic Logo" class="logo" src="/static/logo_main.jpg"/></RouterLink>
-    <HeaderNavBar/>
+    <HeaderNavBar :product-categories="productCategories"/>
   </header>
 
   <RouterView />

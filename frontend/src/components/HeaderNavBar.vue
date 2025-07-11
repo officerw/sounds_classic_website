@@ -1,27 +1,31 @@
 
 <script setup lang="ts">
     import { RouterLink } from 'vue-router'
-    import { ref } from "vue"
+    import { ref, computed, onMounted } from "vue"
     import RouterDropdown from './RouterDropdown.vue';
 
-    const productCategories = ref([
-        { id: 1, routerPath: { name: 'productcategories', params: { product_category: "turntables" } }, text: "Turntables"},
-        { id: 2, routerPath: { name: 'productcategories', params: { product_category: "headphones" } }, text: "Headphones"},
-        { id: 3, routerPath: { name: 'productcategories', params: { product_category: "speakers" } }, text: "Speakers"},
-        { id: 4, routerPath: { name: 'productcategories', params: { product_category: "amplifiers" } }, text: "Amplifiers"},
-        { id: 5, routerPath: { name: 'productcategories', params: { product_category: "receivers" } }, text: "Receivers"},
-        { id: 6, routerPath: { name: 'productcategories', params: { product_category: "cdplayers" } }, text: "CD Players"},
-        { id: 7, routerPath: { name: 'productcategories', params: { product_category: "cassetteplayers" } }, text: "Cassette Players"},
-        { id: 8, routerPath: { name: 'productcategories', params: { product_category: "reel2reel" } }, text: "Reel-to-Reel"},
-        { id: 9, routerPath: { name: 'productcategories', params: { product_category: "accessories" } }, text: "Accessories"},
-    ])
+    // accept the menu items for this dropdown menu
+    const props = defineProps({
+        productCategories: {
+            type: Array as () => String[],
+            required: true
+        }
+    })
 
+    // Map the array of category strings to menu item objects
+    const productCategoryMenuItems = computed(() =>
+        props.productCategories.map((category, idx) => ({
+            id: idx + 1,
+            routerPath: { name: 'productcategories', params: { product_category: String(category) } },
+            text: String(category)
+        }))
+    )
 </script>
 
 <template>
     <nav class="nav-bar">
         <span id="productcategoriesdropdown">
-            <RouterDropdown :menu-items="productCategories" title="Product Categories"/>
+            <RouterDropdown :menu-items="productCategoryMenuItems" title="Product Categories"/>
         </span>
         <RouterLink to="/">Services</RouterLink>
         <RouterLink to="/">Terms of Sale</RouterLink>

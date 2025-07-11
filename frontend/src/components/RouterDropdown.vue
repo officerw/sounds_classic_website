@@ -48,14 +48,6 @@ const props = defineProps({
     }
 })
 
-watch(
-    () => props.menuItems,
-    (newMenuItems) => {
-        console.log(newMenuItems)
-    },
-    { immediate: true }
-)
-
 // Toggles whether the dropdown menu options are visible to the user
 var isDropdownDisplayed = ref(false)
 var dropdownArrow = "/static/downarrow_white.png"
