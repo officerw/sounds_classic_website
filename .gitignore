@@ -5,6 +5,9 @@ __pycache__/*
 # env
 .env
 
+# ignore product images folder
+product_images/*
+
 # Logs
 logs
 *.log
