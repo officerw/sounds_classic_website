@@ -23,7 +23,7 @@
     model: string;
     price: Number;
     condition: string;
-    imageUrl: string;
+    image: string[];
     description: string;
   }
 

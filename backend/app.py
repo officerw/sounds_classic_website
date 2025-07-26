@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, send_file
+from flask import Flask, jsonify, render_template, request, send_from_directory
 from flask_cors import CORS
 import os
 import json
@@ -10,6 +10,7 @@ load_dotenv()
 SQL_DRIVER = os.getenv("SQL_DRIVER")
 SQL_SERVER_NAME = os.getenv("SQL_SERVER_NAME")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
+IMAGES_PATH = os.getenv("IMAGES_PATH")  
 
 # APP
 #
@@ -27,6 +28,14 @@ CORS(app)
 # Uncomment if working locally
 @app.route("/")
 def index():
+    return render_template("index.html")
+
+# catch all routes and serve the index.html in case
+# the user accesses routes not explicitly defined, like
+# dynamic routes (i.e., products, categories, etc.)
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
     return render_template("index.html")
 
 def get_product(product_id):
@@ -112,18 +121,37 @@ def get_products():
     product_id = (str)(request.args.get("id")).strip() if request.args.get("id") else None
     return get_product(product_id)
 
-# EXAMPLE BACKEND HTTP REQUEST AVAILABLE TO FRONTEND
-#@app.route("/api/compilepdf", methods=["POST"])
-#def compilepdf():
-#    request_data = request.get_json()
-#    # Send pdf created by createpdf
-#    pdf = createpdf.compile(request_data)
-#    pdf_response = send_file(pdf)
-#
-#    # Delete file created by pdf after it is sendable
-#    createpdf.deleteFile(pdf)
-#
-#    return pdf_response
+@app.route("/api/product/image", methods=["GET"])
+def get_product_image():
+    img = (str)(request.args.get("img")).strip() if request.args.get("img") else None
+    if img is None:
+        return jsonify({"error": "Product image file name is required"}), 400
+    
+    if not os.path.exists(f"{IMAGES_PATH}/{img}"):
+        return jsonify({"error": "Images path does not exist"}), 404
+    
+    return send_from_directory(IMAGES_PATH, img, as_attachment=False)
+
+@app.route("/api/product/image/main-carousel", methods=["GET"])
+def get_main_carousel_image():
+    # get the nth image from the product images and use that as the
+    # nth image in the main carousel
+    img_num = int((str)(request.args.get("n")).strip()) if request.args.get("n") else None
+
+    if img_num is None:
+        return jsonify({"error": "Image number is required"}), 400
+    
+    if not os.path.exists(f"{IMAGES_PATH}"):
+        return jsonify({"error": "Images path does not exist"}), 404
+    
+    imgs = os.listdir(IMAGES_PATH)
+    num_imgs = len(imgs)
+    img_num = img_num % num_imgs  # wrap around if n exceeds number of images
+    img = imgs[img_num]
+
+    return send_from_directory(IMAGES_PATH, img, as_attachment=False)
+
+
 
 # connect to sql server using pyodbc
 def connect_to_sql():

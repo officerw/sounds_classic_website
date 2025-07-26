@@ -1,6 +1,8 @@
 <script setup lang="ts">
-    import ProductCategory from '@/views/ProductCategory.vue'
-import { RouterLink } from 'vue-router'
+    import { RouterLink } from 'vue-router'
+    import { defineProps } from 'vue'
+
+    const IMAGES_PATH = import.meta.env.VITE_IMAGES_PATH
 
     const props = defineProps({
         product: {
@@ -11,7 +13,7 @@ import { RouterLink } from 'vue-router'
                 model: string
                 price: Number
                 condition: string
-                imageUrl: string
+                image: string[]
                 description: string
             },
             required: true
@@ -27,13 +29,13 @@ import { RouterLink } from 'vue-router'
 <template>
     <div class="product-thumbnail">
         <RouterLink :to="{ name: 'productid', params: { product_category: productCategory, product_id: product.id } }">
-            <img :src="product.imageUrl" :alt="product.manufacturer + ' ' + product.model" class="product-image" />
+            <img :src="'/api/product/image?img=ar_4x_grls.jpg'" :alt="product.manufacturer + ' ' + product.model" class="product-image" />
         </RouterLink>
         
-        <h3 class="product-title">{{ product.manufacturer }} {{ product.model }}</h3>
-        <p class="product-price">${{ product.price.toFixed(2) }}</p>
-        <p class="product-condition">Condition: {{ product.condition }}</p>
-        <p class="product-description">Description: {{ product.description }}</p>
+        <h3 id="product-title">{{ product.manufacturer }} {{ product.model }}</h3>
+        <h4 id="product-price">${{ product.price.toFixed(2) }}</h4>
+        <p id="product-condition">Condition: {{ product.condition }}</p>
+        <p id="product-description">Description: {{ product.description }}</p>
     </div>
 </template>
 
@@ -42,10 +44,20 @@ import { RouterLink } from 'vue-router'
         border: 1px solid #ccc;
         border-radius: 8px;
         padding: 16px;
-        text-align: center;
-        max-width: 300px;
-        max-height: 500px;
+        text-align: left;
+        width: 300px;
+        height: 500px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    #product-price {
+        font-weight: bold;
+        margin: 8px 0;
+    }
+
+    #product-condition {
+        font-weight: bold;
     }
 
     img {

@@ -35,9 +35,9 @@
         description: ""
     })
 
-    const images = Array.from({ length: 1 }, (_, index) => ({
+    const images = Array.from({ length: 2 }, (_, index) => ({
         id: index + 1,
-        url: product.value.imageUrl,
+        url: `/api/product/image/main-carousel?n=${Math.floor(Math.random() * 1000)}`,
     }))
 
     async function getProduct() {
@@ -57,7 +57,6 @@
     }
 
     onMounted(() => {
-        console.log("hellloooo")
         getProduct()
     })
 
@@ -81,7 +80,6 @@
             <h1 class="product-title">{{ product.manufacturer }} {{ product.model }}</h1>
             <h3 class="product-manufacturer">Manufacturer: {{ product.manufacturer }}</h3>
             <h3 class="product-model">Model: {{ product.model }}</h3>
-            <h3 class="product-number">Item #: {{ product.itemNumber }}</h3>
             <br>
             <hr>
             <br>

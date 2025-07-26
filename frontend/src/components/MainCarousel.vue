@@ -4,7 +4,7 @@
 
     const images = Array.from({ length: 10 }, (_, index) => ({
         id: index + 1,
-        url: `https://picsum.photos/seed/${Math.random()}/800/600`,
+        url: `/api/product/image/main-carousel?n=${Math.floor(Math.random() * 1000)}`,
     }))
 
     const carouselConfig = {
