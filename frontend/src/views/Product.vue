@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { onMounted, ref } from 'vue'
-    import { useRoute, onBeforeRouteUpdate } from 'vue-router'
+    import { useRoute, useRouter } from 'vue-router'
     import 'vue3-carousel/carousel.css'
     import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
@@ -10,8 +10,10 @@
     }
 
     const route = useRoute()
+    const router = useRouter()
     var productId = ref(route.params.product_id as string)
     var productAPIEndpoint = `/api/products?id=${productId.value}`
+    var dropdownArrow = "/static/backarrow.png"
 
     interface Product {
         id: string;
@@ -63,6 +65,9 @@
 </script>
 
 <template>
+    <div class="backbutton">
+        <button @click="router.go(-1)"><img id="backbuttonimg" :src="dropdownArrow"></img>Back</button>
+    </div>
     <div class="product-body">
         <div class="product-image">
             <Carousel v-bind="carouselConfig">
@@ -89,8 +94,11 @@
             <h3 class="product-condition">Condition: {{ product.condition }}</h3>
         </div>
         <div class="two"></div>
-        <div class="three"></div>
-        <div class="four"></div>
+        <div class="order-info">
+            <h3>Complete order by contacting us directly.</h3>
+            <br>
+            <h3>Shipping costs will vary based on weight, size, and destination. Before shipment, items undergo quality control to verify 100% functionality and are then packed securely for safe delivery. Allow 48-72 hours for processing and shipping.</h3>
+        </div>
     </div>
 </template>
 
@@ -157,5 +165,25 @@
         min-width: 0;
         min-height: 0;
     }
+
+      #backbuttonimg {
+    width: auto;
+    height: max-content;
+  }
+
+  .backbutton {
+    padding-top: 25px;
+    padding-left: var(--horizontal-page-padding);
+    padding-right: var(--horizontal-page-padding);
+  }
+
+  .backbutton button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+  }
+
 
 </style>

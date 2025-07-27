@@ -1,11 +1,13 @@
 <script setup lang="ts">
   import ProductThumbnail from '@/components/ProductThumbnail.vue';
   import { watch, ref, onMounted } from 'vue'
-  import { useRoute, onBeforeRouteUpdate } from 'vue-router'
+  import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 
   const route = useRoute()
+  const router = useRouter()
   var currentCategory = ref(route.params.product_category as string)
   var categoryProdAPIEndpoint = "/api/categories?category=" + currentCategory.value
+  var dropdownArrow = "/static/backarrow.png"
 
   // watch for changes in the product category to update
   // product thumbnails
@@ -28,6 +30,7 @@
   }
 
   const productsInCategory = ref<Product[]>([])
+  const emptyCategory = ref(true)
 
   async function getProductCategories() {
     try {
@@ -39,6 +42,7 @@
       }
       var categories = await response.json()
       productsInCategory.value = categories.map((product: Product) => product)
+      emptyCategory.value = productsInCategory.value.length === 0
     } catch (error) {
       console.error("Error fetching product categories:", error);
       return [];
@@ -53,7 +57,13 @@
 </script>
 
 <template>
-  <div class="product-category-body">
+  <div class="backbutton">
+    <button @click="router.go(-1)"><img id="backbuttonimg" :src="dropdownArrow"></img>Back</button>
+  </div>
+  <div v-if="emptyCategory" class="product-category-no-products-page">
+    <p>There are no items to show for this category at the moment. Please check later.</p>
+  </div>
+  <div v-else class="product-category-body">
     <div v-for="product in productsInCategory">
       <ProductThumbnail :product-category="currentCategory" :product="product"/>
     </div>
@@ -63,7 +73,7 @@
 <style>
   .product-category-body {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     padding-left: var(--horizontal-page-padding);
     padding-right: var(--horizontal-page-padding);
@@ -71,6 +81,33 @@
     padding-bottom: 2rem;
     min-height: var(--home-height);
     box-sizing: border-box;
+  }
+
+  .product-category-no-products-page {
+    justify-content: center;
+    height: 100vh;
+    font-size: 1.25rem;
+    padding: 5%;
+    display: flex;
+  }
+
+  #backbuttonimg {
+    width: auto;
+    height: max-content;
+  }
+
+  .backbutton {
+    padding-top: 25px;
+    padding-left: var(--horizontal-page-padding);
+    padding-right: var(--horizontal-page-padding);
+  }
+
+  .backbutton button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
   }
 
 </style>

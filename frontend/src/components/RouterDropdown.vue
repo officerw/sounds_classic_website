@@ -7,8 +7,8 @@
 --> 
 
 <script setup lang="ts">
-import { RouterLink, type RouteParamsRawGeneric } from 'vue-router'
-import { ref, watch } from 'vue'
+import { RouterLink, type RouteParamsRawGeneric, useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 /*
     menuItem structure:
@@ -25,6 +25,8 @@ interface MenuItem {
     routerPath: { name: string; params: RouteParamsRawGeneric }
     text: string
 }
+
+const router = useRouter()
 
 /*
     Input props for the RouterDropdown component:
@@ -61,6 +63,14 @@ function toggleDropdown() {
         dropdownArrow = "/static/downarrow_white.png"
     }
 }
+
+function navigateTo(pathName: string, params: RouteParamsRawGeneric) {
+    // Close dropdown and then navigate
+    isDropdownDisplayed.value = false
+    dropdownArrow = "/static/downarrow_white.png"
+
+    router.push({ name: pathName, params })
+}
 </script>
 
 <template>
@@ -83,8 +93,8 @@ function toggleDropdown() {
         -->
         <div v-if="isDropdownDisplayed" class="dropdownmenu">
             <ul>
-                <li v-for="menuItem in props.menuItems" :key="menuItem.id">
-                    <RouterLink :to="{ name: menuItem.routerPath.name, params: menuItem.routerPath.params }">{{ menuItem.text }}</RouterLink>
+                <li id="dropdown-option" v-for="menuItem in props.menuItems" :key="menuItem.id">
+                    <button @click="navigateTo(menuItem.routerPath.name, menuItem.routerPath.params)">{{ menuItem.text }}</button>
                 </li>
             </ul>
         </div>
@@ -154,16 +164,19 @@ img {
     margin: 5px;
 }
 
-a {
+#dropdown-option button {
     padding: 0;
     display: block;
     width: 100%;
     height: 100%;
     color:black;
     text-wrap: initial;
+    background-color: transparent;
+    border: none;
+    font-size: var(--header-nav-font-size);
 }
 
-a:hover {
+#dropdown-option button:hover {
     background-color: gray;
 }
 </style>
