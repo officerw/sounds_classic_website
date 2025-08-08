@@ -38,15 +38,22 @@ def index():
 def catch_all(path):
     return render_template("index.html")
 
+# if product_id is None, get all products
+# otherwise get specific product based on id
 def get_product(product_id):
-    query = "SELECT * FROM dbo.invt WHERE webitem=1 AND Status_='Active'"
-    if product_id is not None:
-        query += f" AND id_={product_id}"
-
     try:
+        # connect to database
         cnxn = connect_to_sql()
         cursor = cnxn.cursor()
-        cursor.execute(query)
+
+        # see if we need to get all products or just one
+        if product_id is not None:
+            # note use of sql parameters given to cursor to avoid sql injection
+            cursor.execute("SELECT * FROM dbo.invt WHERE webitem=1 AND Status_='Active' AND id_=?", product_id)
+        else:
+            cursor.execute("SELECT * FROM dbo.invt WHERE webitem=1 AND Status_='Active'")
+
+        # iterate over rows to get all products associated with query
         product = None
         for row in cursor:
             product = {
@@ -81,12 +88,15 @@ def list_categories():
         return jsonify(categories)
     except Exception as e:
         return jsonify([])
-    
+
+# get all products from a category
 def get_category(category_requested):
     try:
         cnxn = connect_to_sql()
         cursor = cnxn.cursor()
-        cursor.execute(f"SELECT * FROM dbo.invt WHERE webitem=1 AND Status_='Active' AND category='{category_requested}'")
+        # note use of sql cursor parameters to avoid sql injection
+        cursor.execute("SELECT * FROM dbo.invt WHERE webitem=1 AND Status_='Active' AND category=?", category_requested)
+        
         products = []
         for row in cursor:
             product = {
@@ -110,7 +120,6 @@ def get_category(category_requested):
 @app.route("/api/categories", methods=["GET"])
 def get_categories():
     category_requested = (str)(request.args.get("category")).strip() if request.args.get("category") else None
-
     if category_requested == None:
         return list_categories()
     else:
